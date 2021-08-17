@@ -1,0 +1,17 @@
+< PLRN 에서 Type 결정하는 부분 개요 >
+1. Sample Name 이 PC, NC, STD 등이 포함된 경우 PC, NC, STANDARD 로 설정
+2. Wild Type 은 별도 설정 안함 (Sample 로 설정됨)
+
+Omelet 뷰어의 경우,
+1. PC1, PC2, PC3 등의 PC Type 을 Sample Name 기준으로 설정하도록 한다.
+2. SD1, SD2, SD3 등의 SD Type 을 Sample Name 기준으로 설정하도록 한다. (주의. PLRN 의 경우 STD1 으로 넘어오면 SD1 으로 설정하여야 한다.)
+3. Wild Control 의 경우 Type 을 Sample Name 그대로 설정하도록 한다.
+WTCe, MWTCe, XWTCe, MWTC, XWTC
+
+
+< CFX96 Excel >
+PC1, PC2, PC3
+SD1, SD2, SD3
+WTC 들 처리
+등을 현재 뷰어가 어떻게 하고 있는지 선파악 필요 (Excel 데이터의 어디를 참조하여 코드는 어떻게 하여 Type 할당하고 있는지)
+당장의 현재 제품들에서는 필수 구현은 아니나 시간이 되면 구현을 해 놓을 필요가 있는 부분임

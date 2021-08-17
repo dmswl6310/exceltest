@@ -1,0 +1,82 @@
+Plate
+	Plate Type
+	Well Count
+
+	Dyes
+		FAM
+		HEX
+		Cal 610
+		...
+	Wells
+		0
+			A01
+			Type	Sample/pc/nc/...
+			Name
+			Patient ID
+			...
+			Dyes
+				0
+					Channel == 1
+					DYE       == FAM
+				1
+				2
+				...
+			
+		1
+			A02
+			...
+		2
+		...
+		96
+Data
+	Channel == 1
+	Dye == FAM
+	StepData
+		0
+			Step == 8
+			StepType == Default/Melt/...
+			Temperature
+			Cycle == 40 / 45
+			WellData
+				0 (QuantStep 4)
+					A01
+					Quantification
+						RFU[0]
+						RFU[1]
+						...
+						RFU[40]
+				1 (QuantStep 5)
+				2
+				...
+				45
+
+		1
+			Step == 9
+		,,,
+
+	Channel == 2
+	Dye == HEX
+	StepData
+	...
+
+	Channel == 4 ( or 5 )
+
+
+
+element.style {
+    position: absolute;
+    /* left: 147px; */
+    /* top: 150px; */
+    line-height: 50px;
+    min-width: 135px;
+    font-size: 14px;
+    margin-left: 78px;
+}
+  "msg_mastermix_volumn_insufficiency": "There may be insufficient Mastermix volumes.",
+  "msg_whitespace_not_used": "바코드 입력 시 특수 문자는 입력 불가합니다.",
+
+-----------------------------------------------------------------------------------------------
+msg_pooling_min_max
+ "Pooling Value is Max 10, Min 4"
+"Pooling 값은 최대 10, 최소 4입니다."
+Pooling-Werte sind maximal 10 und minimal 4.

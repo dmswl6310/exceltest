@@ -1,0 +1,95 @@
+WRMCB=function(e){var c=console;if(c&&c.log&&c.error){c.log('Error running batched script.');c.error(e);}}
+;
+try {
+/* module-key = 'com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources', location = '/js/request-access-util.js' */
+define("confluence/request-access/request-access-util",["confluence/legacy"],function(b){var a=function a(c){if(c.length===1){return AJS.format("\uc811\uadfc\uc744 \ud5c8\uc6a9\ud558\ub3c4\ub85d {0}\ub2d8\uc5d0\uac8c \uc694\uccad\ud588\uc2b5\ub2c8\ub2e4. \uc694\uccad\uc774 \uc2b9\uc778\ub418\uba74 \uc774\uba54\uc77c\uc744 \ubc1b\uac8c \ub429\ub2c8\ub2e4",b.Request.Access.usernameLink({user:c[0]}))}if(c.length===2){return AJS.format("\uc811\uadfc\uc744 \ud5c8\uc6a9\ud558\ub3c4\ub85d {0} \uadf8\ub9ac\uace0 {1}\ub2d8\uc5d0\uac8c \uc694\uccad\ud588\uc2b5\ub2c8\ub2e4. \uc694\uccad\uc774 \uc2b9\uc778\ub418\uba74 \uc774\uba54\uc77c\uc744 \ubc1b\uac8c \ub429\ub2c8\ub2e4",b.Request.Access.usernameLink({user:c[0]}),b.Request.Access.usernameLink({user:c[1]}))}if(c.length===3){return AJS.format("{0}, {1} \uadf8\ub9ac\uace0 1\uba85\uc758 \uc0ac\uc6a9\uc790\uc5d0\uac8c \uadc0\ud558\uc758 \uc811\uadfc\uc744 \ud5c8\uc6a9\ud558\ub3c4\ub85d \uc694\uccad\ud588\uc2b5\ub2c8\ub2e4. \uc694\uccad\uc774 \uc2b9\uc778\ub418\uba74 \uc774\uba54\uc77c\uc744 \ubc1b\uac8c \ub429\ub2c8\ub2e4",b.Request.Access.usernameLink({user:c[0]}),b.Request.Access.usernameLink({user:c[1]}))}return AJS.format("{0}, {1} \uadf8\ub9ac\uace0 {2}\uba85\uc758 \uc0ac\uc6a9\uc790\uc5d0\uac8c \uadc0\ud558\uc758 \uc811\uadfc\uc744 \ud5c8\uc6a9\ud558\ub3c4\ub85d \uc694\uccad\ud588\uc2b5\ub2c8\ub2e4. \uc694\uccad\uc774 \uc2b9\uc778\ub418\uba74 \uc774\uba54\uc77c\uc744 \ubc1b\uac8c \ub429\ub2c8\ub2e4",b.Request.Access.usernameLink({user:c[0]}),b.Request.Access.usernameLink({user:c[1]}),c.length-2)};return{messageBody:a}});
+}catch(e){WRMCB(e)};
+;
+try {
+/* module-key = 'com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources', location = '/js/request-access-page.js' */
+require(["ajs","jquery","confluence/legacy","confluence/meta","confluence/request-access/request-access-util"],function(a,d,e,b,c){a.toInit(function(){var g=b.get("page-id");var f=b.get("remote-user");var k=d(".request-access-container");var j=d(".request-access-container button");var i=j.data("access-type");var h=d("#invite-to-edit-draft").length;if(h){g=d("#invite-to-edit-draft").data("draft-id")}if(k.length){d("#breadcrumbs").hide();d("#title-text.with-breadcrumbs").hide();if(j.length){a.trigger("analyticsEvent",{name:"confluence.request.access.plugin.request.access.to.page.view",data:{pageId:g,requestAccessUser:f,accessType:i}})}}j.prop("disabled",false);j.removeAttr("aria-disabled");j.click(function(){a.trigger("analyticsEvent",{name:"confluence.request.access.plugin.request.access.to.page",data:{pageId:g,requestAccessUser:f,accessType:i}});j.attr("aria-disabled","true");var l=d(e.Request.Access.loading({}));j.replaceWith(l);d.ajax({url:e.getContextPath()+"/rest/access/latest/page/restriction/"+g+"/request/"+i,type:"POST",contentType:"application/json; charset=utf-8",success:function(m){if(m.users.length===0){a.flag({type:"error",title:"\uc811\uadfc \uc694\uccad\uc774 \uc2e4\ud328\ud568",body:"\uc811\uadfc \uc694\uccad\uc774 \uc804\uc1a1\ub418\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4. \uacf5\uac04 \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud574 \uc8fc\uc138\uc694."});return}a.flag({type:"success",title:"\uc694\uccad\uc774 \uc804\uc1a1\ub428",body:c.messageBody(m.users)})},error:function(m,n){a.flag({type:"error",title:"\uc811\uadfc \uc694\uccad\uc774 \uc2e4\ud328\ud568",body:"\uc811\uadfc \uc694\uccad\uc774 \uc804\uc1a1\ub418\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4. \uacf5\uac04 \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud574 \uc8fc\uc138\uc694."})},complete:function(){l.remove();e.Binder.userHover()}})})})});
+}catch(e){WRMCB(e)};
+;
+try {
+/* module-key = 'com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources', location = '/js/request-edit-access-dialog.js' */
+require(["ajs","jquery","confluence/legacy","confluence/meta","confluence/request-access/request-access-util"],function(a,d,e,b,c){a.toInit(function(){var f=WRM.data.claim("com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources.mail-server-configured");var m=d("#system-content-items");var n=d("#content-metadata-page-restrictions").length!==0;var i=b.get("page-id");var j=b.get("remote-user");if(!m.length||!n||d("#editPageLink").length||!k()){return}var l=d(e.Request.Access.loading());var g=a.InlineDialog(m,"requestAccessDialog",h,o());function h(q,p,r){q.css({padding:"20px"}).html(e.Request.Access.dialog({canRequestAccess:f&&j}));q.on("click","#request-access-dialog-button",function(u){u.stopPropagation();var s=q.find(".actions-result");s.replaceWith(l);a.trigger("analyticsEvent",{name:"confluence.request.access.plugin.request.access.to.page",data:{pageId:i,requestAccessUser:j,accessType:"edit"}});var t="";d.ajax({url:e.getContextPath()+"/rest/access/latest/page/restriction/"+i+"/request/edit",type:"POST",contentType:"application/json; charset=utf-8",data:j,success:function(v){if(v.users.length===0){a.flag({type:"error",title:"\uc811\uadfc \uc694\uccad\uc774 \uc2e4\ud328\ud568",body:"\uc811\uadfc \uc694\uccad\uc774 \uc804\uc1a1\ub418\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4. \uacf5\uac04 \uad00\ub9ac\uc790\uc5d0\uac8c \ubb38\uc758\ud574 \uc8fc\uc138\uc694."});return}a.flag({type:"success",title:"\uc694\uccad\uc774 \uc804\uc1a1\ub428",body:c.messageBody(v.users)})},error:function(v){if(v.status==412){t="\uc811\uadfc\uc774 \ud5c8\uac00\ub418\uc5c8\uc9c0\ub9cc, \uad6c\uc131\ub41c \uba54\uc77c \uc11c\ubc84\uac00 \uc5c6\uae30 \ub54c\ubb38\uc5d0 \uc54c\ub9bc \uba54\uc77c\uc744 \ubc1c\uc1a1\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."}else{if(v.status==502){t="\uc811\uadfc\uc774 \ud5c8\uac00\ub418\uc5c8\uc9c0\ub9cc, \uc54c\ub9bc\uc744 \ubc1c\uc1a1\ud558\ub294 \ub3d9\uc548 \uc608\uc0c1\uce58 \ubabb\ud55c \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4."}else{t="\uc8c4\uc1a1\ud569\ub2c8\ub2e4, \uc811\uadfc\uc744 \ud5c8\uac00\ud558\ub294 \ub3d9\uc548 \uc608\uc0c1\uce58 \ubabb\ud55c \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4."}}a.flag({type:"error",title:"\uc811\uadfc \uc694\uccad\uc774 \uc2e4\ud328\ud568",body:t})},complete:function(){l.remove();g.hide()}})});q.on("click",".aui-button.cancel",function(s){g.hide()});r();return false}function o(){return{offsetY:2,offsetX:0,width:350,hideDelay:null,noBind:true,hideCallback:function(){setTimeout(g.hide(),5000)}}}function k(){var p=window.location.search.match(/[\?&]requestEditAccess=/);return !!(p&&p.length)}g.show()})});
+}catch(e){WRMCB(e)};
+;
+try {
+/* module-key = 'com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources', location = '/js/grant-access.js' */
+require(["ajs","jquery","confluence/legacy","confluence/meta"],function(a,c,d,b){a.toInit(function(){var e=b.get("page-id");var i=b.get("remote-user");var p=s("username");var h=s("accessType");var g=s("userFullName");var k=c("#system-content-items");var m=c("#content-metadata-page-restrictions").length!==0;var j=c("#rte-button-restrictions");var n=o()&&j.length&&s("grantAccess")&&h;var r=k.length&&m&&s("grantAccess")&&h;if(!r&&!n){return}if(n){k=j;e=b.get("draft-id")}var f=c(d.Request.Access.loading());var q=a.InlineDialog(k,"grantAccessDialog",function(u,t,v){u.css({padding:"20px"}).html(d.Grant.Access.dialog({requestAccessUsername:p,requestAccessUserFullName:g,requestAccessType:h,contentType:b.get("content-type")}));u.on("click",".aui-button.grant-access",function(z){z.stopPropagation();var y=u.find(".actions-result");y.replaceWith(f);a.trigger("analyticsEvent",{name:"confluence.request.access.plugin.grant.access.to.page",data:{pageId:e,grantAccessUser:i,requestAccessUser:p,accessType:h}});var x="";var w="";c.ajax({url:d.getContextPath()+"/rest/access/latest/page/restriction/"+e+"/grant/"+h,type:"POST",contentType:"application/json; charset=utf-8",data:p,success:function(B,C,A){if(A.status===202){x="\uc911\uc694\ud55c \uac83\uc740 \uc0dd\uac01\uc785\ub2c8\ub2e4";w="\uc774\ubbf8 \ub204\uad70\uac00\uac00 \uc774 \uc0ac\ub78c\uc758 \uc811\uadfc\uc744 \ud5c8\uc6a9\ud588\uc2b5\ub2c8\ub2e4."}else{x="\uc811\uadfc \uc694\uccad\uc5d0 \ud5c8\uc6a9\ub428";w="\uc774 \uc694\uccad\uc774 \uc2b9\uc778\ub418\uc5c8\uc74c\uc744 \uc54c\ub9ac\uaca0\uc2b5\ub2c8\ub2e4."}a.flag({type:"success",title:x,body:w})},error:function(A){if(A.status===412){w="\uc811\uadfc\uc774 \ud5c8\uac00\ub418\uc5c8\uc9c0\ub9cc, \uad6c\uc131\ub41c \uba54\uc77c \uc11c\ubc84\uac00 \uc5c6\uae30 \ub54c\ubb38\uc5d0 \uc54c\ub9bc \uba54\uc77c\uc744 \ubc1c\uc1a1\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."}else{if(A.status===502){w="\uc811\uadfc\uc774 \ud5c8\uac00\ub418\uc5c8\uc9c0\ub9cc, \uc54c\ub9bc\uc744 \ubc1c\uc1a1\ud558\ub294 \ub3d9\uc548 \uc608\uc0c1\uce58 \ubabb\ud55c \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4."}else{w="\uc8c4\uc1a1\ud569\ub2c8\ub2e4, \uc811\uadfc\uc744 \ud5c8\uac00\ud558\ub294 \ub3d9\uc548 \uc608\uc0c1\uce58 \ubabb\ud55c \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4."}}a.flag({type:"error",title:"\uc811\uadfc \uc694\uccad \uc624\ub958",body:w})},complete:function(){q.hide()}})});u.on("click",".aui-button.deny-access",function(){a.trigger("analyticsEvent",{name:"confluence.request.access.plugin.deny.access.to.page",data:{pageId:e,grantAccessUser:i,requestAccessUser:p,accessType:h}});q.hide()});v();return false},{offsetY:2,offsetX:0,width:350,hideDelay:null,noBind:true,hideCallback:function(){setTimeout(q.hide(),5000)}});l(e,p,h).done(function(t){if(t.hasPermission){a.flag({type:"success",title:"\uc911\uc694\ud55c \uac83\uc740 \uc0dd\uac01\uc785\ub2c8\ub2e4",body:"\uc774\ubbf8 \ub204\uad70\uac00\uac00 \uc774 \uc0ac\ub78c\uc758 \uc811\uadfc\uc744 \ud5c8\uc6a9\ud588\uc2b5\ub2c8\ub2e4."})}else{q.show()}}).fail(function(t){console.error("Was unable to check current user permission",t);q.show()});function s(t){t=t.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var v=new RegExp("[\\?&]"+t+"=([^&#]*)"),u=v.exec(location.search);return u==null?"":decodeURIComponent(u[1].replace(/\+/g," "))}function l(t,v,u){return c.ajax({url:d.getContextPath()+"/rest/access/latest/page/restriction/"+t+"/check/"+u,data:{username:v},type:"GET",contentType:"application/json; charset=utf-8"})}function o(){return a.Rte&&a.Rte.getEditor&&a.Rte.getEditor()&&(!!a.$("#editpageform").length||!!a.$("#createpageform").length)}})});
+}catch(e){WRMCB(e)};
+;
+try {
+/* module-key = 'com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources', location = '/templates/soy/request-access.soy' */
+// This file was automatically generated from request-access.soy.
+// Please don't edit this file by hand.
+
+/**
+ * @fileoverview Templates in namespace Confluence.Request.Access.
+ */
+
+if (typeof Confluence == 'undefined') { var Confluence = {}; }
+if (typeof Confluence.Request == 'undefined') { Confluence.Request = {}; }
+if (typeof Confluence.Request.Access == 'undefined') { Confluence.Request.Access = {}; }
+
+
+Confluence.Request.Access.usernameLink = function(opt_data, opt_ignored) {
+  return '<a href="' + soy.$$escapeHtml("") + '/display/~' + soy.$$escapeUri(opt_data.user.name) + '" class="url fn confluence-userlink" title data-username="' + soy.$$escapeHtml(opt_data.user.name) + '">' + soy.$$escapeHtml(opt_data.user.fullName) + '</a>';
+};
+if (goog.DEBUG) {
+  Confluence.Request.Access.usernameLink.soyTemplateName = 'Confluence.Request.Access.usernameLink';
+}
+
+
+Confluence.Request.Access.loading = function(opt_data, opt_ignored) {
+  return '<span id="request-access-loading" class=\'aui-icon aui-icon-wait\'>' + soy.$$escapeHtml('\ubd88\ub7ec\uc624\ub294 \uc911, \uc7a0\uc2dc \uae30\ub2e4\ub824 \uc8fc\uc2ed\uc2dc\uc624.') + '</span>"';
+};
+if (goog.DEBUG) {
+  Confluence.Request.Access.loading.soyTemplateName = 'Confluence.Request.Access.loading';
+}
+
+
+Confluence.Request.Access.dialog = function(opt_data, opt_ignored) {
+  return '<div class="request-access-dialog"><h2 class="grant-access-title">' + soy.$$escapeHtml('\ud3b8\uc9d1\ud560 \uc218 \uc788\ub294 \uad8c\ud55c\uc774 \uc5c6\uc2b5\ub2c8\ub2e4') + '</h2>' + ((opt_data.canRequestAccess) ? '<p class="grant-access-message">' + soy.$$escapeHtml('\uc811\uadfc \uc694\uccad\uc744 \ub204\ub974\uba74 \uc811\uadfc\uc744 \ud5c8\uc6a9\ud560 \uc218 \uc788\ub294 \uc0ac\ub78c\uc774 \ud45c\uc2dc\ub429\ub2c8\ub2e4.') + '</p><div class="actions-result"><button id="request-access-dialog-button" class="aui-button">' + soy.$$escapeHtml('\uc811\uadfc \uad8c\ud55c \uc694\uccad') + '</button><button class="aui-button aui-button-link cancel">' + soy.$$escapeHtml('\ucde8\uc18c') + '</button><div>' : '<p class="grant-access-message">' + soy.$$escapeHtml('\uacf5\uac04 \uad00\ub9ac\uc790\ub098 \uc774 \ud398\uc774\uc9c0\ub97c \uacf5\uc720\ud55c \uc0ac\uc6a9\uc790\uac00 \uc811\uadfc\uc744 \ud5c8\uc6a9\ud560 \uc218 \uc788\uc744 \uac83\uc785\ub2c8\ub2e4.') + '</p><div class="actions-result"><button class="aui-button aui-button-link cancel">' + soy.$$escapeHtml('\ub2eb\uae30') + '</button><div>') + '</div>';
+};
+if (goog.DEBUG) {
+  Confluence.Request.Access.dialog.soyTemplateName = 'Confluence.Request.Access.dialog';
+}
+
+}catch(e){WRMCB(e)};
+;
+try {
+/* module-key = 'com.atlassian.confluence.plugins.confluence-request-access-plugin:confluence-request-access-plugin-resources', location = '/templates/soy/grant-access.soy' */
+// This file was automatically generated from grant-access.soy.
+// Please don't edit this file by hand.
+
+/**
+ * @fileoverview Templates in namespace Confluence.Grant.Access.
+ */
+
+if (typeof Confluence == 'undefined') { var Confluence = {}; }
+if (typeof Confluence.Grant == 'undefined') { Confluence.Grant = {}; }
+if (typeof Confluence.Grant.Access == 'undefined') { Confluence.Grant.Access = {}; }
+
+
+Confluence.Grant.Access.dialog = function(opt_data, opt_ignored) {
+  var output = '<div class="grant-access-dialog">';
+  var usernameLink__soy4 = '' + Confluence.Grant.Access.usernameLink({username: opt_data.requestAccessUsername, userFullName: opt_data.requestAccessUserFullName});
+  var requestAccessDescription__soy8 = '' + ((opt_data.requestAccessType == 'edit') ? (opt_data.contentType == 'blogpost') ? soy.$$filterNoAutoescape(AJS.format('{0}\ub2d8\uc774 \uc774 \ube14\ub85c\uadf8 \ud3ec\uc2a4\ud2b8\ub97c \x3cstrong\x3e\ud3b8\uc9d1\x3c/strong\x3e\ud558\uae30 \uc6d0\ud569\ub2c8\ub2e4.',usernameLink__soy4)) : soy.$$filterNoAutoescape(AJS.format('{0}\ub2d8\uc774 \uc774 \ud398\uc774\uc9c0\ub97c \x3cstrong\x3e\ud3b8\uc9d1\x3c/strong\x3e\ud558\uae30 \uc6d0\ud569\ub2c8\ub2e4.',usernameLink__soy4)) : (opt_data.contentType == 'blogpost') ? soy.$$filterNoAutoescape(AJS.format('{0}\ub2d8\uc774 \uc774 \ube14\ub85c\uadf8 \uac8c\uc2dc\ubb3c \x3cstrong\x3e\ubcf4\uae30\x3c/strong\x3e\ub97c \uc6d0\ud569\ub2c8\ub2e4.',usernameLink__soy4)) : soy.$$filterNoAutoescape(AJS.format('{0}\ub2d8\uc774 \uc774 \ud398\uc774\uc9c0 \x3cstrong\x3e\ubcf4\uae30\x3c/strong\x3e\ub97c \uc6d0\ud569\ub2c8\ub2e4.',usernameLink__soy4)));
+  output += '<h2 class="title grant-access-title">' + soy.$$escapeHtml('\uc811\uadfc \uc694\uccad') + '</h2><p class="grant-access-message">' + soy.$$filterNoAutoescape(requestAccessDescription__soy8) + '</p><div class="actions-result"><button class="aui-button grant-access">' + soy.$$escapeHtml('\uc811\uadfc \ud5c8\uac00') + '</button><button class="aui-button aui-button-link deny-access">' + soy.$$escapeHtml('\uac70\ubd80') + '</button><div></div>';
+  return output;
+};
+if (goog.DEBUG) {
+  Confluence.Grant.Access.dialog.soyTemplateName = 'Confluence.Grant.Access.dialog';
+}
+
+
+Confluence.Grant.Access.usernameLink = function(opt_data, opt_ignored) {
+  return '<a href="' + soy.$$escapeHtml("") + '/display/~' + soy.$$escapeHtml(opt_data.username) + '" class="url fn" title data-username="' + soy.$$escapeHtml(opt_data.username) + '"><strong>' + soy.$$escapeHtml(opt_data.userFullName) + '</strong> (' + soy.$$escapeHtml(opt_data.username) + ')</a>';
+};
+if (goog.DEBUG) {
+  Confluence.Grant.Access.usernameLink.soyTemplateName = 'Confluence.Grant.Access.usernameLink';
+}
+
+}catch(e){WRMCB(e)};
