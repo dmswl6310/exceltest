@@ -16,9 +16,8 @@ const fileChangedHandler = async (event: { target: { files: any } }) => {
     groupPath
   );
   let excelData = await fileMapping(event.target.files);
-  console.log("excelData", excelData);
-  console.log("eef", excelData[0][0]);
-  // return parcingExcel(excelData);
+  // console.log("excelData", excelData);
+  return parcingExcel(excelData);
 };
 
 function App() {
