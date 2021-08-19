@@ -97,7 +97,8 @@ const parcingExcel = async (total: any[]) => {
 
     for (let j = 0; j < rowNum; j += 1) {
       const well = {} as wellFormat;
-      well.position = rowValue + keys[j];
+      if (keys[j].length === 1) well.position = rowValue + "0" + keys[j];
+      else well.position = rowValue + keys[j];
 
       if (data[0][0][i][keys[j]] === "Unkn") {
         well.type = "SAMPLE";
@@ -166,11 +167,11 @@ const parcingExcel = async (total: any[]) => {
         const welldata = {} as wellDataFormat;
 
         // **quantitation Ct Result에서 가져옴
-        let pos = data[3][0][k]["Well"];
-        if (data[3][0][k]["Well"][1] === "0")
-          pos = data[3][0][k]["Well"][0] + data[3][0][k]["Well"][2];
-        welldata.position = pos;
-        // console.log("position", welldata.position);
+        welldata.position = data[3][0][k]["Well"];
+        let pos = welldata.position;
+        if (welldata.position[1] === "0")
+          pos = welldata.position[0] + welldata.position[2];
+
         welldata.target = "SGRT, 미구현";
         welldata.Sq = data[3][0][k]["Starting Quantity (SQ)"];
         welldata.Ct = data[3][0][k]["C(t) Mean"];
@@ -182,11 +183,11 @@ const parcingExcel = async (total: any[]) => {
         } else {
           if (stepData.stepType === "QuantStep") {
             for (let m = 0; m < stepinfo.end; m += 1) {
-              welldata.quantification.push(data[6][i][m][welldata.position]);
+              welldata.quantification.push(data[6][i][m][pos]);
             }
           } else if (stepData.stepType === "MeltStep") {
             for (let m = 0; m < stepinfo.end; m += 1) {
-              welldata.quantification.push(data[8][i][m][welldata.position]);
+              welldata.quantification.push(data[8][i][m][pos]);
             }
           } else {
             console.log("미확인 stepType");
